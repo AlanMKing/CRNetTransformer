@@ -1,3 +1,7 @@
+"""
+整体模型，位置编码和Encoder层使用的Facebook团队官方的DETR代码
+"""
+
 from config import *
 from backbone import BACKBONE
 from transformer_detr import *
