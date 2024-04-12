@@ -1,3 +1,5 @@
+# 调试使用，具体见jupyter notebook
+
 from config import *
 from crnet_encoder_model import CRNETENCODER
 from crnet_encoder_dataset import CRNETENCODERDataset
@@ -5,12 +7,12 @@ from crnet_encoder_loss import CRNETENCODERLoss
 
 
 
-image_dir = r'F:\BiYeSheJi\program\Dataset\Images\Train'
+image_dir = r'...\Dataset\Images\Train'
 gt_dirs = [
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Tf',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Tc',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Xoffset',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Yoffset'
+    r'..\Tf',
+    r'..\Tc',
+    r'..\Xoffset',
+    r'..\Yoffset'
 ]
 
 def train_model():
@@ -21,11 +23,11 @@ def train_model():
 
     # 加载数据集
     dataset = CRNETENCODERDataset(image_dir, gt_dirs, target_size=(128, 128))  # target_size=(160, 160) 用于加载crnet的gt计算loss，目前未使用
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)  # ,collate_fn=custom_collate_fn
-    # 这里不太会使用dataloader，所以没有做custom_collate_fn，计算loss时格式不匹配可能来自这里，但detr官方使用coco格式，不能作为参考
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
     # 定义模型
     model = CRNETENCODER().to(device)
-    # 匈牙利匹配实例化
+
+    # 定义损失函数参数
     weight_dict = {'loss_all': 2, 'loss_crnet': 0.5}
     loss_fn = CRNETENCODERLoss()
     loss_fn.to(device)
@@ -52,7 +54,6 @@ def train_model():
             outputs = model(images)
 
             # 计算损失
-            # loss = loss_fn(pre_class, pre_box, tf, tc, xoffset, yoffset, gt)
             loss_dict = loss_fn(outputs, gts)
             losses = sum(loss_dict[k] * weight_dict[k] for k in loss_dict.keys() if k in weight_dict)
             total_loss += losses.item()
@@ -63,19 +64,19 @@ def train_model():
             # 梯度裁剪
             # torch.nn.utils.clip_grad_norm_(detr.parameters(), max_norm=1.0)
 
+            # 梯度消失检查（略）
+
             optimizer.step()
 
             end_time = time.time()
             if (batch_idx + 1) % 50 == 0:
+                print(loss_dict)
                 print(f"Epoch [{epoch + 1}/{num_epochs}], Step [{batch_idx + 1}/{len(dataloader)}], Loss: {losses.item():.4f} , Total Time: {end_time - start_time}s")
-                # torch.save(transformer, f'trans_model{epoch + 1}.pth')
 
         end_epoch_time = time.time()
         print(f"Epoch [{epoch + 1}/{num_epochs}], Average Loss: {total_loss / len(dataloader):.4f}, 1 Epoch Time {end_epoch_time - start_time} s")
-        if (epoch + 1) % 1 == 0:
+        if (epoch + 1) % 5 == 0:
             torch.save(model, f'detr_model{epoch+1}.pth')
-            # print(outputs['pred_logits'])
-            # print(outputs['pred_boxes'])
             pass
         print('***********************************************************************')
 
