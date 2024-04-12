@@ -1,7 +1,7 @@
 """
-输入（batchisize，3，640，640），变换在dataset中实现
-输出 m （B，256*4，160，160） 256*4是因为输入mce的是fpn生成的四个特征图再次组合后，四个特征图上采样拼接起来的
-    tf，tc，xoffset，yoffset是（B，1，160，160），groundtruth中对应为原图大小，在dataset时变换
+输入（batchisize，3，512，512），变换在dataset中实现
+输出 m （B，256*4，512，512） 256*4是因为输入mce的是fpn生成的四个特征图再次组合后，四个特征图上采样拼接起来的
+tf，tc，xoffset，yoffset是（B，1，512，512），groundtruth中对应为原图大小，在dataset时变换
 """
 
 
