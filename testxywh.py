@@ -3,13 +3,13 @@ import torch
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-image_dir = r'F:\BiYeSheJi\program\Dataset\Images\Train'
+image_dir = r'..\Images\Train'
 gt_dirs = [
-    r'F:\BiYeSheJi\program\Transformer\totaltext\polys',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Tf',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Tc',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Xoffset',
-    r'F:\BiYeSheJi\program\Transformer\totaltext\Yoffset'
+    r'..\polys',
+    r'..\Tf',
+    r'..\Tc',
+    r'..\Xoffset',
+    r'..\Yoffset'
 ]
 
 
