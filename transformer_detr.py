@@ -1,5 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 """
+DETR官方代码，做了部分修改适配
 DETR Transformer class.
 
 Copy-paste from torch.nn.Transformer with modifications:
