@@ -1,3 +1,7 @@
+"""
+loss函数的定义参考“CRNet：A Center-aware Representation for Detecting Text of Arbitrary Shape”论文中损失函数
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
