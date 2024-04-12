@@ -1,3 +1,7 @@
+"""
+Dataset，gts返回类型为字典，Tf Tc Xoffset Yoffset 由getlabel生成并存储为npy
+"""
+
 import torch
 from torch.utils.data import Dataset
 import matplotlib.pyplot as plt
@@ -33,12 +37,12 @@ class CRNETENCODERDataset(Dataset):
 
         return image,gts
 
-# image_dir = r'F:\BiYeSheJi\program\Dataset\Images\Train'
+# image_dir = r'..\Images\Train'
 # gt_dirs = [
-#     r'F:\BiYeSheJi\program\Transformer\totaltext\Tf',
-#     r'F:\BiYeSheJi\program\Transformer\totaltext\Tc',
-#     r'F:\BiYeSheJi\program\Transformer\totaltext\Xoffset',
-#     r'F:\BiYeSheJi\program\Transformer\totaltext\Yoffset'
+#     r'..\Tf',
+#     r'..\Tc',
+#     r'..\Xoffset',
+#     r'..\Yoffset'
 # ]
 #
 # dataset = DETRDataset(image_dir, gt_dirs, target_size=(128,128))
